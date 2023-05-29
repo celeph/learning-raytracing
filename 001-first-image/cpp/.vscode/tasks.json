@@ -1,0 +1,101 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build debug",
+            "type": "shell",
+            "command": "cl.exe",
+            "args": [
+                "/EHsc",
+                "/Zi",
+                "/Fo:",
+                "./obj/",
+                "/Fd:",
+                "./bin/",
+                "/Fe:",
+                "bin/ep001-vs.exe",
+                "src/ep001.cpp"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build release",
+            "type": "shell",
+            "command": "cl.exe",
+            "args": [
+                "/MD",
+                "/W4",
+                "/EHsc",
+                "/std:c++17",
+                "/O2",
+                "/Fo:",
+                "./obj/",
+                "/Fe:",
+                "bin/ep001-vs.exe",
+                "src/ep001.cpp"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "run",
+            "dependsOn": [
+                "build release"
+            ],
+            "type": "shell",
+            "command": "./bin/ep001-vs.exe > output/ep001-vs.ppm",
+            "windows": {
+                "command": "\"bin\\ep001-vs.exe | C:\\MinGW\\msys\\1.0\\bin\\dos2unix.exe > output\\ep001-vs.ppm",
+                "options": {
+                    "shell": { 
+                        "executable": "cmd.exe",
+                        "args": [
+                            "/u",
+                            "/c"
+                        ]
+                    }
+                },
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "clean",
+            "dependsOn": [
+            ],
+            "type": "shell",
+            "command": "rm -f ./obj/* ./bin/*",
+            "windows": {
+                "command": "del /Q .\\obj\\*.* & del /Q .\\bin\\*.*",
+                "options": {
+                    "shell": { 
+                        "executable": "cmd.exe",
+                        "args": [
+                            "/u",
+                            "/c"
+                        ]
+                    }
+                },
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        }
+    ]
+}
