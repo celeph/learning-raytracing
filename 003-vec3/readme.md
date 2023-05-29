@@ -107,7 +107,7 @@ cd wasm
 make run
 ```
 
-Open http://localhost:9090/ep001.html
+Open http://localhost:9090/
 
 Note: The makefile will attempt to launch the Python3 `http.server` 
 module to listen to port 9090. Feel free to change port or server (e.g. NodeJS).
